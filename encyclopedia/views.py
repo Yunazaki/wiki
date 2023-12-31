@@ -1,7 +1,12 @@
 from django.http import HttpResponseNotFound
 from django.shortcuts import render, redirect
+from django import forms
 
 from . import util
+
+class NewPageForm(forms.Form):
+    title = forms.CharField(widget=forms.TextInput, label="Title")
+    content = forms.CharField(widget=forms.Textarea, label="Content")
 
 def index(request):
     entries = util.list_entries()
@@ -32,6 +37,20 @@ def page(request, title):
     })
 
 def newpage(request):
+    if request.method == "POST":
+        form = NewPageForm(request.POST)
+
+        if form.is_valid():
+            title = form.cleaned_data['title']
+            content = form.cleaned_data['content']
+
+            if util.get_entry(title):
+                return redirect('page', title=title)
+            
+            util.save_entry(title, content)
+
+            return redirect('page', title=title)
+
     return render(request, "encyclopedia/newpage.html", {
         "form": NewPageForm()
     })
