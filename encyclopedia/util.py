@@ -40,7 +40,7 @@ def check_string(query):
     results = []
     entries = list_entries()
     for entry in entries:
-        if query in entry:
+        if query.lower() in entry.lower():
             results.append(entry)
 
     return results

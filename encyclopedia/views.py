@@ -5,18 +5,22 @@ from . import util
 
 def index(request):
     entries = util.list_entries()
-    query = request.GET.get('q', '')
-    if query in entries:
+    query = request.GET.get('q', '').lower()
+
+    if query in (entry.lower() for entry in entries):
         return redirect('page', title=query)
-    
+    elif query:
+        return redirect('results', query=query)
+
     return render(request, "encyclopedia/index.html", {
         "entries": entries,
         "query": query
     })
 
-def results(request):
-    return render(request, "ecyclopedia/results.html", {
-        "query": None
+def results(request, query):
+    return render(request, "encyclopedia/results.html", {
+        "query": query,
+        "results": util.check_string(query)
     })
 
 def page(request, title):

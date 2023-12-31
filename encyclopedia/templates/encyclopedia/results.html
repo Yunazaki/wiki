@@ -3,3 +3,14 @@
 {% block title %}
     Search results for '{{ query }}'
 {% endblock %}
+
+{% block body %}
+    <h1>Results</h1>
+    <ul>
+        {% for result in results %}
+            <li>
+                <a href="{% url 'page' title=result %}">{{ result }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
