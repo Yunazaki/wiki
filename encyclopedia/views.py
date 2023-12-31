@@ -4,12 +4,19 @@ from django.shortcuts import render, redirect
 from . import util
 
 def index(request):
+    entries = util.list_entries()
     query = request.GET.get('q', '')
-    if query:
+    if query in entries:
         return redirect('page', title=query)
+    
     return render(request, "encyclopedia/index.html", {
-        "entries": util.list_entries(),
+        "entries": entries,
         "query": query
+    })
+
+def results(request):
+    return render(request, "ecyclopedia/results.html", {
+        "query": None
     })
 
 def page(request, title):
