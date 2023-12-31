@@ -1,11 +1,15 @@
 from django.http import HttpResponseNotFound
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from . import util
 
 def index(request):
+    query = request.GET.get('q', '')
+    if query:
+        return redirect('page', title=query)
     return render(request, "encyclopedia/index.html", {
-        "entries": util.list_entries()
+        "entries": util.list_entries(),
+        "query": query
     })
 
 def page(request, title):
