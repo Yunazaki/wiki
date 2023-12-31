@@ -32,4 +32,6 @@ def page(request, title):
     })
 
 def newpage(request):
-    return render(request, "encyclopedia/newpage.html")
+    return render(request, "encyclopedia/newpage.html", {
+        "form": NewPageForm()
+    })
