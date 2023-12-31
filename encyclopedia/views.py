@@ -30,3 +30,6 @@ def page(request, title):
     return render(request, "encyclopedia/page.html", {
         "entry": util.get_entry(title)
     })
+
+def newpage(request):
+    return render(request, "encyclopedia/newpage.html")
