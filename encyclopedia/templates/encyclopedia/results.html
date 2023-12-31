@@ -13,4 +13,7 @@
             </li>
         {% endfor %}
     </ul>
+    {% if results|length == 0 %}
+        <div>No results for '{{ query }}'</div>
+    {% endif %}
 {% endblock %}
