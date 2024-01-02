@@ -6,4 +6,9 @@
 
 {% block body %}
     {{ entry }}
+    <div class="text-center">
+        <footer>
+            <a href="{% url 'edit' title=title %}">Edit Page</a>
+        </footer>
+    </div>
 {% endblock %}

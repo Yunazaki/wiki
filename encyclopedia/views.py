@@ -33,7 +33,8 @@ def page(request, title):
         return HttpResponseNotFound()
     
     return render(request, "encyclopedia/page.html", {
-        "entry": util.get_entry(title)
+        "entry": util.get_entry(title),
+        "title": title
     })
 
 def newpage(request):
@@ -59,5 +60,7 @@ def newpage(request):
         "form": NewPageForm()
     })
 
-def edit(request):
-    return render(request, "encyclopedia/edit.html")
+def edit(request, title):
+    return render(request, "encyclopedia/edit.html", {
+        "title": title
+    })
