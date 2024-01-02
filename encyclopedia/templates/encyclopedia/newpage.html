@@ -5,6 +5,11 @@
 {% endblock %}
 
 {% block body %}
+    {% if warning_message %}
+        <div class="alert alert-warning">
+            {{ warning_message }}
+        </div>
+    {% endif %}
     <div class="text-center">
         <h1>Create a New Page</h1>
     </div>

@@ -45,7 +45,11 @@ def newpage(request):
             content = form.cleaned_data['content']
 
             if util.get_entry(title):
-                return redirect('page', title=title)
+                warning_message = "Warning: Entry with this title already exists"
+                return render(request, "encyclopedia/newpage.html", {
+                    "form": NewPageForm(),
+                    "warning_message": warning_message
+                })
             
             util.save_entry(title, content)
 
@@ -54,3 +58,6 @@ def newpage(request):
     return render(request, "encyclopedia/newpage.html", {
         "form": NewPageForm()
     })
+
+def edit(request):
+    return render(request, "encyclopedia/edit.html")
