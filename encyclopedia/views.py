@@ -8,6 +8,9 @@ class NewPageForm(forms.Form):
     title = forms.CharField(widget=forms.TextInput, label="Title")
     content = forms.CharField(widget=forms.Textarea, label="Content")
 
+class EditForm(forms.Form):
+    content = forms.CharField(widget=forms.Textarea, label="Content")
+
 def index(request):
     entries = util.list_entries()
     query = request.GET.get('q', '').lower()
@@ -62,5 +65,6 @@ def newpage(request):
 
 def edit(request, title):
     return render(request, "encyclopedia/edit.html", {
-        "title": title
+        "entry": util.get_entry(title),
+        "form": EditForm()
     })

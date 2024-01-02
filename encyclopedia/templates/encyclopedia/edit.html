@@ -1,9 +1,21 @@
 {% extends 'encyclopedia/layout.html' %}
 
 {% block title %}
-
+    {{ title }}
 {% endblock %}
 
 {% block body %}
-
+    <div>
+        <form action="encyclopedia/page.html" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.content.id_for_label }}" class="text-center">
+                    <h1>Edit</h1>
+                </label>
+                <textarea class="form-control resizeable" name="{{ form.content.name}}" id="{{ form.content.id_for_label }}" rows="30">
+                    {{ entry }}
+                </textarea>
+            </div>
+        </form>
+    </div>
 {% endblock %}
