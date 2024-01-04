@@ -2,7 +2,9 @@ from django.http import HttpResponseNotFound
 from django.shortcuts import render, redirect
 from django import forms
 from django.urls import reverse
-import random
+from django.utils.safestring import mark_safe
+from random import choice
+from markdown2 import Markdown
 
 from . import util
 
@@ -34,11 +36,13 @@ def results(request, query):
     })
 
 def page(request, title):
-    if not util.get_entry(title):
+    markdowner = Markdown()
+    entry = util.get_entry(title)
+    if not entry:
         return HttpResponseNotFound()
     
     return render(request, "encyclopedia/page.html", {
-        "entry": util.get_entry(title),
+        "entry": mark_safe(markdowner.convert(entry)),
         "title": title
     })
 
@@ -84,5 +88,5 @@ def edit(request, title):
 
 def random_page(request):
     entries = util.list_entries()
-    return redirect('page', title=random.choice(entries))
+    return redirect('page', title=choice(entries))
         
