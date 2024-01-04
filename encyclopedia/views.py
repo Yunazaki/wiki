@@ -2,7 +2,6 @@ from django.http import HttpResponseNotFound
 from django.shortcuts import render, redirect
 from django import forms
 from django.urls import reverse
-from django.utils.safestring import mark_safe
 from random import choice
 from markdown2 import Markdown
 
@@ -42,11 +41,11 @@ def page(request, title):
         return HttpResponseNotFound()
     
     return render(request, "encyclopedia/page.html", {
-        "entry": mark_safe(markdowner.convert(entry)),
+        "entry": markdowner.convert(entry),
         "title": title
     })
 
-def newpage(request):
+def new_page(request):
     if request.method == "POST":
         form = NewPageForm(request.POST)
 
