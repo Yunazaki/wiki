@@ -1,6 +1,8 @@
 from django.http import HttpResponseNotFound
 from django.shortcuts import render, redirect
 from django import forms
+from django.urls import reverse
+import random
 
 from . import util
 
@@ -79,3 +81,8 @@ def edit(request, title):
         "form": EditForm(),
         "title": title
     })
+
+def random_page(request):
+    entries = util.list_entries()
+    return redirect('page', title=random.choice(entries))
+        
