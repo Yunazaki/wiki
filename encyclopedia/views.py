@@ -64,7 +64,18 @@ def newpage(request):
     })
 
 def edit(request, title):
+    if request.method == "POST":
+        form = EditForm(request.POST)
+
+        if form.is_valid():
+            content = form.cleaned_data['content']
+
+            util.save_entry(title, content)
+            
+            return redirect('page', title=title)
+
     return render(request, "encyclopedia/edit.html", {
         "entry": util.get_entry(title),
-        "form": EditForm()
+        "form": EditForm(),
+        "title": title
     })
