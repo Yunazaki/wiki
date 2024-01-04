@@ -64,7 +64,7 @@ def new_page(request):
 
             return redirect('page', title=title)
 
-    return render(request, "encyclopedia/newpage.html", {
+    return render(request, "encyclopedia/new_page.html", {
         "form": NewPageForm()
     })
 
