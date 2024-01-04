@@ -23,3 +23,5 @@ This project is a Wikipedia replica built using Django, HTML, and Bootstrap for 
 - **Bootstrap:** Provides styling for an improved user interface.
 
 ## Demo
+
+https://youtu.be/1C5s9KgjTR0
